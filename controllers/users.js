@@ -74,7 +74,7 @@ const updateUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
      //#swagger.tags = ['Users']
-  const userId = ObjectId(req.params.id);
+  const userId = new ObjectId(req.params.id);
   const response = await mongodb
     .getDatabase()
     .collection("users")
