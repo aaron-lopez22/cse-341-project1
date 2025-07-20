@@ -45,23 +45,30 @@ const createUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-     //#swagger.tags = ['Users']
-  const userId = ObjectId(req.params.id);
-  const user = {
-        firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    email: req.body.email,
-    favoriteColor: req.body.favoriteColor,
-    birthday: req.body.birthday,
-  };
-  const response = await mongodb
-    .getDatabase()
-    .collection("users")
-    .replaceOne({ _id: userId }, user);
-  if (response.modifiedCount > 0) {
-    res.status(200).json({ message: "User updated successfully!" });
-  } else {
-    res.status(500).json({ message: "Error updating user!" });
+  //#swagger.tags = ['Users']
+  try {
+    const userId = ObjectId(req.params.id);
+    const user = {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      favoriteColor: req.body.favoriteColor,
+      birthday: req.body.birthday,
+    };
+
+    const response = await mongodb
+      .getDatabase()
+      .collection("users")
+      .replaceOne({ _id: userId }, user);
+
+    if (response.modifiedCount > 0) {
+      res.status(200).json({ message: "User updated successfully!" });
+    } else {
+      res.status(500).json({ message: "Error updating user!" });
+    }
+  } catch (err) {
+    console.error("UPDATE ERROR:", err); // <-- will show in Render logs
+    res.status(500).json({ message: err.message || "Internal Server Error" });
   }
 };
 
