@@ -3,6 +3,7 @@ const mongodb = require("../data/database");
 const { ObjectId } = require("mongodb");
 
 const getAll = async (req, res) => {
+     //#swagger.tags = ['Users']
   const result = await mongodb.getDatabase().collection("users").find();
   result.toArray().then((users) => {
     res.setHeader("Content-Type", "application/json");
@@ -11,6 +12,7 @@ const getAll = async (req, res) => {
 };
 
 const getSingle = async (req, res) => {
+    //#swagger.tags = ['Users']
   const userId = ObjectId(req.params.id);
   const result = await mongodb
     .getDatabase()
@@ -23,6 +25,7 @@ const getSingle = async (req, res) => {
 };
 
 const createUser = async (req, res) => {
+     //#swagger.tags = ['Users']
   const user = {
     email: req.body.email,
     username: req.body.username,
@@ -41,6 +44,7 @@ const createUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
+     //#swagger.tags = ['Users']
   const userId = ObjectId(req.params.id);
   const user = {
     username: req.body.username,
@@ -60,6 +64,7 @@ const updateUser = async (req, res) => {
 };
 
 const deleteUser = async (req, res) => {
+     //#swagger.tags = ['Users']
   const userId = ObjectId(req.params.id);
   const response = await mongodb
     .getDatabase()
