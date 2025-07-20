@@ -47,7 +47,7 @@ const createUser = async (req, res) => {
 const updateUser = async (req, res) => {
   //#swagger.tags = ['Users']
   try {
-    const userId = ObjectId(req.params.id);
+    const userId = new ObjectId(req.params.id);
     const user = {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
